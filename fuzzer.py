@@ -20,19 +20,19 @@ def generate_random_string(size=10, chars=string.printable):
     return random_str
 
 def main():
-    if len(sys.argv) < 2:
-        print ("[-] Error -> Missing executable name: pfuzz.py FILE")
+    if len(sys.argv) < 3:
+        print ("[-] Error -> Proper usage: pfuzz.py FILE NUM_OF_TESTS")
         return
     exec_name = str(sys.argv[1])
     exec_cmd = './' + exec_name
-
+    num_of_tests = int(sys.argv[2])
     
-    process = Popen([exec_cmd], stdin=PIPE, stderr=PIPE)
-    gen_str = generate_random_string()
-    enc_gen_str = gen_str.encode('utf8')
-    print(gen_str)
-    print(enc_gen_str)
-    stdin, stderr = process.communicate(enc_gen_str)
+    for i in range(num_of_tests):
+        print("\n[Test " + str(i) + "]\n\n")
+        process = Popen([exec_cmd], stdin=PIPE, stderr=PIPE)
+        gen_str = generate_random_string(random.randint(1,100))
+        enc_gen_str = gen_str.encode('utf8')
+        stdin, stderr = process.communicate(enc_gen_str)
     
 if __name__ == "__main__":
     main()
