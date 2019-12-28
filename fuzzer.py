@@ -1,6 +1,6 @@
 # Project: Python fuzzer
 # Author: Emanuel Aracena
-# Name of file: pfuzz.py
+# Name of file: fuzzer.py
 # Date created: August 23, 2019
 # Description: A Python3 fuzzer for finding input that crashes C programs in
 #              in order to generate test cases.
@@ -14,13 +14,13 @@ import os
 import subprocess
 from subprocess import Popen, PIPE
 
-def generate_random_string(size=10, chars=string.printable):
+def generate_random_string(size, chars=string.printable):
     random_str = ''
     random_str = random_str.join(random.choices(chars, k=size))
     print(random_str)
     return random_str
 
-def generate_random_bytes(size=10):
+def generate_random_bytes(size):
     return os.urandom(size)
 
 # Return code of subprocess returns as -N if error arises,
@@ -64,6 +64,7 @@ def main():
 
         # Random bytes
         enc_gen_str = generate_random_bytes(random.randint(1,100))
+
         stdin, stderr = process.communicate(enc_gen_str)
         return_code = process.returncode
 
