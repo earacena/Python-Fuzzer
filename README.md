@@ -1,7 +1,7 @@
 # Python-Fuzzer
 
 ### Author
-Emanuel Aracena Beriguete
+earacena
 
 ### Description
 A Python-based fuzzer that generates input to test for potential faults.
